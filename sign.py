@@ -14,7 +14,15 @@ def main():
         parse_message(change['doc'])
 
 def parse_message(message):
-    print message
+    try:
+        data = message['data']
+    except KeyError:
+        print "Message did not have 'data' field."
+        return
+    nolight = data.get('nolight', True)
+    nosound = data.get('nosound', True)
+    text = data.get('text', None)
+    print "Displaying '{text}'. (nosound={ns}, nolight={nl})".format(text=text, ns=nosound, nl=nolight)
 
 if __name__ == "__main__":
     main()
